@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ApiKeyGuard } from './common/guards/api-key.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,7 +17,6 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api'); // L'ajout d'un préfixe pour les routes de l'API.
 
-  app.useGlobalGuards(new ApiKeyGuard(configService));
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
