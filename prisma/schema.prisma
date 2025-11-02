@@ -18,7 +18,7 @@ model Transfer {
   ref          String    @unique
   amount       Int
   currency     String
-  channel      String
+  channel      TransferChannel
   recipient    Json
   metadata     Json?
   fees         Int
@@ -36,4 +36,16 @@ enum TransferStatus {
   SUCCESS
   FAILED
   CANCELED
+}
+
+enum TransferChannel {
+  WAVE
+  OM
+}
+
+model Audit {
+  id        String   @id @default(uuid())
+  action    String
+  details   String
+  createdAt DateTime @default(now())
 }

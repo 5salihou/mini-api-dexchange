@@ -1,13 +1,16 @@
 -- CreateEnum
 CREATE TYPE "TransferStatus" AS ENUM ('PENDING', 'PROCESSING', 'SUCCESS', 'FAILED', 'CANCELED');
 
+-- CreateEnum
+CREATE TYPE "TransferChannel" AS ENUM ('WAVE', 'OM');
+
 -- CreateTable
 CREATE TABLE "Transfer" (
     "id" SERIAL NOT NULL,
     "ref" TEXT NOT NULL,
     "amount" INTEGER NOT NULL,
     "currency" TEXT NOT NULL,
-    "channel" TEXT NOT NULL,
+    "channel" "TransferChannel" NOT NULL,
     "recipient" JSONB NOT NULL,
     "metadata" JSONB,
     "fees" INTEGER NOT NULL,
@@ -19,6 +22,16 @@ CREATE TABLE "Transfer" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Transfer_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Audit" (
+    "id" TEXT NOT NULL,
+    "action" TEXT NOT NULL,
+    "details" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Audit_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

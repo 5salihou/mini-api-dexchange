@@ -8,17 +8,29 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
-  // Swaguer
+  // Configure le préfixe global avant Swagger
+  app.setGlobalPrefix('api');
+
+  // Configuration Swagger
   const config = new DocumentBuilder()
     .setTitle('mini-api-dexchange')
     .setDescription('une mini-API de gestion de transferts sécurisée')
     .setVersion('0.1')
-    .addBearerAuth()
+    .addApiKey({ type: 'apiKey', name: 'x-api-key', in: 'header' }, 'x-api-key')
+    .addSecurityRequirements('x-api-key')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('docs', app, document); // Change le chemin de Swagger à /docs
 
-  app.setGlobalPrefix('api'); // L'ajout d'un préfixe pour les routes de l'API.
+  // Configuration de CORS
+  app.enableCors({
+    origin: '*',
+    allowedHeaders: [
+      'Content-Type, x-api-key, Access-Control-Allow-Origin, x-access-token, Accept',
+    ],
+    methods: 'POST,GET,PUT,PATCH,DELETE',
+    // credentials: true,
+  });
 
   app.useGlobalGuards(new ApiKeyGuard(configService));
 
