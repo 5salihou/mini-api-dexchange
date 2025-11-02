@@ -66,15 +66,7 @@ POST /transfers/:id/process
 POST /transfers/:id/cancel
 
 
-🧪 Tests unitaires
-npm run test
 
-
-Tests inclus :
-
-✅ Calcul des frais (min 100, max 1500)
-
-✅ Transition d’état contrôlée (PENDING → PROCESSING → SUCCESS)
 
 🧘 Auteurs
 
