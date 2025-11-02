@@ -92,6 +92,42 @@ Tests inclus :
 
 ```
 
+## 🔄 Explication du flow
+
+```bash
+- Toutes les routes sont protégées par une clé API (x-api-key)
+- Calcul dynamique des frais (0.8% avec min/max)
+- Transferts passent par PENDING, PROCESSING, SUCCESS/FAILED
+- Provider simulé avec délai et probabilité de succès
+- Historique des étapes du transfert
+- Recherche et Résultats paginés pour les listes
+
+```
+
+## 🧠 Choix techniques
+
+```bash
+
+- NestJS : architecture modulaire, testabilité
+- Prisma : ORM typé, rapide et moderne
+- PostgreSQL : base de données relationnelle robuste et open-source
+- Swagger : documentation interactive
+- Jest : tests unitaires robustes
+- Docker : environnement reproductible
+
+```
+
+## ⏳ Ce que je ferais avec plus de temps
+
+```bash
+
+- Interface admin pour visualiser les transferts
+- Intégration d’un vrai provider (Wave, Orange Money)
+- notification du client en temps réel
+- Authentification multi-clés avec rôles
+
+```
+
 ## 🧘 Auteurs
 
 ```bash
