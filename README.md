@@ -29,19 +29,32 @@ npx prisma migrate dev
 # Démarrer l’API
 npm run start:dev
 
-Swagger disponible sur :
+```
+
+## Swagger disponible sur
+
+```bash
+
 👉 http://localhost:3000/docs
 
-🔐 Authentification
+```
+
+## 🔐 Authentification
+
+```bash
 
 Toutes les routes requièrent un header :
 
 x-api-key: 1234567890-DEXCHANGE
 
-🧱 Endpoints principaux
+```
+
+## 🧱 Endpoints principaux
+
+```bash
+
 1️⃣ Créer un transfert
 POST /transfers
-
 
 Body :
 
@@ -65,10 +78,23 @@ POST /transfers/:id/process
 5️⃣ Annuler un transfert
 POST /transfers/:id/cancel
 
+```
 
+## 🧪 Tests unitaires
 
+```bash
 
-🧘 Auteurs
+npm run test
+
+Tests inclus :
+
+✅ Calcul des frais (min 100, max 1500)
+
+```
+
+## 🧘 Auteurs
+
+```bash
 
 Cheikh Salikh Taha Niang
 © DEXCHANGE Test Project
