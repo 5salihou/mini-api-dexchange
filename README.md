@@ -14,8 +14,8 @@ API NestJS simulant un service de transfert d’argent avec :
 
 ```bash
 # Cloner le repo
-git clone https://github.com/username/dexchange-mini-api.git
-cd dexchange-mini-api
+git clone https://github.com/5salihou/mini-api-dexchange.git
+cd mini-api-dexchange
 
 # Installer les dépendances
 npm install
