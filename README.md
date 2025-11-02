@@ -1,73 +1,82 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# DEXCHANGE – Mini API de Transferts
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API NestJS simulant un service de transfert d’argent avec :
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- Authentification par **API Key**
+- Gestion des **états de transfert**
+- Calcul automatique des **frais**
+- **Pagination** et **filtres**
+- **Swagger** + tests Jest
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
+## 🚀 Installation & Lancement
 
 ```bash
-$ npm install
-```
+# Cloner le repo
+git clone https://github.com/username/dexchange-mini-api.git
+cd dexchange-mini-api
 
-## Running the app
+# Installer les dépendances
+npm install
 
-```bash
-# development
-$ npm run start
+# Démarrer Postgres avec Docker
+docker-compose up
 
-# watch mode
-$ npm run start:dev
+# Lancer la migration Prisma
+npx prisma migrate dev
 
-# production mode
-$ npm run start:prod
-```
+# Démarrer l’API
+npm run start:dev
 
-## Test
+Swagger disponible sur :
+👉 http://localhost:3000/docs
 
-```bash
-# unit tests
-$ npm run test
+🔐 Authentification
 
-# e2e tests
-$ npm run test:e2e
+Toutes les routes requièrent un header :
 
-# test coverage
-$ npm run test:cov
-```
+x-api-key: 1234567890-DEXCHANGE
 
-## Support
+🧱 Endpoints principaux
+1️⃣ Créer un transfert
+POST /transfers
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+Body :
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+{
+  "amount": 12500,
+  "currency": "XOF",
+  "channel": "WAVE",
+  "recipient": { "phone": "+221770000000", "name": "Jane Doe" },
+  "metadata": { "orderId": "ABC-123" }
+}
 
-## License
+2️⃣ Lister les transferts
+GET /transfers?status=PENDING&limit=10
 
-Nest is [MIT licensed](LICENSE).
+3️⃣ Lister un transfert par son ID
+GET /transfers/:id
+
+4️⃣ Simuler le traitement
+POST /transfers/:id/process
+
+5️⃣ Annuler un transfert
+POST /transfers/:id/cancel
+
+
+🧪 Tests unitaires
+npm run test
+
+
+Tests inclus :
+
+✅ Calcul des frais (min 100, max 1500)
+
+✅ Transition d’état contrôlée (PENDING → PROCESSING → SUCCESS)
+
+🧘 Auteurs
+
+Cheikh Salikh Taha Niang
+© DEXCHANGE Test Project
